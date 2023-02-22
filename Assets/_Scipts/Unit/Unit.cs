@@ -17,22 +17,21 @@ public class Unit : MonoBehaviour
         {
             var moveDir = (targetPosition - transform.position).normalized;
             transform.position += moveDir * unitSpeed * Time.deltaTime;
-
-            if (Vector3.Distance(transform.position, targetPosition) <= stopingTreshold)
-            {
-                transform.position = transform.position.RoundToInt();
-            }
         }
-        
-        
-        if (Input.GetKeyDown(KeyCode.Space))
+
+
+        if (Input.GetMouseButtonDown(0))
         {
-            Move(new Vector3(10, 0, 10), unitSpeed);
+            var mouse = MouseWorld.GetMouseInfo();
+            
+            if (!mouse.IsHit) return;
+            
+            Move(mouse.HitPoint);
         }
     }
 
 
-    private void Move(Vector3 targetPos, float speed)
+    private void Move(Vector3 targetPos)
     {
         targetPosition = targetPos;
     }
