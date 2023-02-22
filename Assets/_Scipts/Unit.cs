@@ -20,7 +20,7 @@ public class Unit : MonoBehaviour
 
             if (Vector3.Distance(transform.position, targetPosition) <= stopingTreshold)
             {
-                transform.position = Vector3Extention.Round(transform.position);    
+                transform.position = transform.position.RoundToInt();
             }
         }
         
