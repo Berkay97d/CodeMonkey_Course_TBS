@@ -958,6 +958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitSpeed: 5
   stopingTreshold: 0.1
+  rotateSpeed: 13
 --- !u!1 &1814387989
 GameObject:
   m_ObjectHideFlags: 0

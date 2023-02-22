@@ -7,25 +7,17 @@ public class Unit : MonoBehaviour
 {
     [SerializeField] private float unitSpeed;
     [SerializeField] private float stopingTreshold;
-
+    [SerializeField] private float rotateSpeed;
+    
     public bool IsWalking { get; private set; }
     
     private Vector3 targetPosition;
-
+    private Vector3 direction;
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, targetPosition) > stopingTreshold)
-        {
-            var moveDir = (targetPosition - transform.position).normalized;
-            transform.position += moveDir * unitSpeed * Time.deltaTime;
-            IsWalking = true;
-        }
-        else
-        {
-            IsWalking = false;
-        }
-
+        HandleMovement();
+        HandleRotation();
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -34,6 +26,25 @@ public class Unit : MonoBehaviour
             if (!mouse.IsHit) return;
             
             Move(mouse.HitPoint);
+        }
+    }
+
+    private void HandleRotation()
+    {
+        transform.forward = Vector3.Lerp(transform.forward,direction, Time.deltaTime * rotateSpeed);
+    }
+    
+    private void HandleMovement()
+    {
+        if (Vector3.Distance(transform.position, targetPosition) > stopingTreshold)
+        {
+            direction = (targetPosition - transform.position).normalized;
+            transform.position += direction * unitSpeed * Time.deltaTime;
+            IsWalking = true;
+        }
+        else
+        {
+            IsWalking = false;
         }
     }
 
