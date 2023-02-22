@@ -8,6 +8,8 @@ public class Unit : MonoBehaviour
     [SerializeField] private float unitSpeed;
     [SerializeField] private float stopingTreshold;
 
+    public bool IsWalking { get; private set; }
+    
     private Vector3 targetPosition;
 
 
@@ -17,6 +19,11 @@ public class Unit : MonoBehaviour
         {
             var moveDir = (targetPosition - transform.position).normalized;
             transform.position += moveDir * unitSpeed * Time.deltaTime;
+            IsWalking = true;
+        }
+        else
+        {
+            IsWalking = false;
         }
 
 
