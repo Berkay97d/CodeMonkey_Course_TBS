@@ -15,9 +15,9 @@ public class MouseWorld : MonoBehaviour
         instance = this;
     }
     
-    public static MouseInfo GetMouseMovementInfo()
+    public static MouseFloorClickedInfo GetMouseMovementInfo()
     {
-        var mouseInfo = new MouseInfo();
+        var mouseInfo = new MouseFloorClickedInfo();
         
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         mouseInfo.IsHit = Physics.Raycast(ray, out RaycastHit hit,float.MaxValue ,instance.floorLayerMask);
@@ -26,9 +26,9 @@ public class MouseWorld : MonoBehaviour
         return mouseInfo;
     }
 
-    public static UnitMouseInfo GetMouseUnitInfo()
+    public static MouseUnitClickedInfo GetMouseUnitInfo()
     {
-        var unitInfo = new UnitMouseInfo();
+        var unitInfo = new MouseUnitClickedInfo();
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         unitInfo.IsClickAnyUnit = false;
