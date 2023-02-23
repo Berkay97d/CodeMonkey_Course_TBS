@@ -3,28 +3,36 @@
 
 public class LevelGrid : MonoBehaviour
 {
-    private GridSystem gridSystem;
     [SerializeField] private Transform prefab;
+
+    public static LevelGrid Instance { get; private set; }
+    
+    private GridSystem gridSystem;
         
     
     private void Awake()
     {
+        Instance = this;
+        
         gridSystem = new GridSystem(10, 10, 1f);
         gridSystem.CreateDebugObjects(prefab);
     }
 
     public void SetUnitAtGridPosition(GridPosition gridPosition, Unit unit)
     {
-        
+        var gridObj = gridSystem.GetGrid(gridPosition);
+        gridObj.unitOn = unit;
     }
 
     public Unit GetUnitAtGridPosition(GridPosition gridPosition)
     {
-        
+        var gridObj = gridSystem.GetGrid(gridPosition);
+        return gridObj.unitOn;
     }
 
     public void ClearUnitAtGridPosition(GridPosition gridPosition)
     {
-        
+        var gridObj = gridSystem.GetGrid(gridPosition);
+        gridObj.unitOn = null;
     }
 }

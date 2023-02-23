@@ -20,6 +20,11 @@ public class Unit : MonoBehaviour
         targetPosition = transform.position;
     }
 
+    private void Start()
+    {
+        //LevelGrid.Instance.SetUnitAtGridPosition();
+    }
+
     private void Update()
     {
         HandleMovement();

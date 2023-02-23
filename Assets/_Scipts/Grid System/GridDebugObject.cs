@@ -5,17 +5,17 @@ public class GridDebugObject : MonoBehaviour
 {
     [SerializeField] private TMP_Text text;
     
-    public Grid MyGrid
+    public GridObject MyGridObject
     {
-        get => myGrid;
+        get => myGridObject;
         set
         {
-            myGrid = value;
-            text.text = myGrid.ToString();
+            myGridObject = value;
+            text.text = myGridObject.ToString();
         }
     }
 
-    private Grid myGrid;
+    private GridObject myGridObject;
 
 
 }

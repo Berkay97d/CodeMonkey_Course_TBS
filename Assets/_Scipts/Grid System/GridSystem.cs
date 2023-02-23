@@ -7,7 +7,7 @@ public class GridSystem
     private readonly int width;
     private readonly int height;
     private readonly float cellSize;
-    private readonly Grid[,] gridArray;
+    private readonly GridObject[,] gridArray;
     
     public GridSystem(int width, int height, float cellSize)
     {
@@ -15,14 +15,14 @@ public class GridSystem
         this.height = height;
         this.cellSize = cellSize;
 
-        gridArray = new Grid[width, height];
+        gridArray = new GridObject[width, height];
         
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < height; z++)
             {
                 var gridPosition = new GridPosition(x, z);
-                var grid = new Grid(this, gridPosition);
+                var grid = new GridObject(this, gridPosition);
                 
                 gridArray[x, z] = grid;
             }
@@ -53,12 +53,12 @@ public class GridSystem
                 
                 var gridDebugObj = debugTransform.GetComponent<GridDebugObject>();
                 
-                gridDebugObj.MyGrid = GetGrid(gridPos);
+                gridDebugObj.MyGridObject = GetGrid(gridPos);
             }
         }
     }
 
-    public Grid GetGrid(GridPosition gridPosition)
+    public GridObject GetGrid(GridPosition gridPosition)
     {
         return gridArray[gridPosition.x, gridPosition.z];
     }
