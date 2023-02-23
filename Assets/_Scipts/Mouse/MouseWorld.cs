@@ -8,11 +8,12 @@ public class MouseWorld : MonoBehaviour
     [SerializeField] private LayerMask floorLayerMask;
     [SerializeField] private LayerMask unitLayerMask;
 
-    private static MouseWorld instance;
+    public static MouseWorld Instance { get; private set; }
 
+    
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
     
     public static MouseFloorClickedInfo GetMouseMovementInfo()
@@ -20,7 +21,7 @@ public class MouseWorld : MonoBehaviour
         var mouseInfo = new MouseFloorClickedInfo();
         
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        mouseInfo.IsHit = Physics.Raycast(ray, out RaycastHit hit,float.MaxValue ,instance.floorLayerMask);
+        mouseInfo.IsHit = Physics.Raycast(ray, out RaycastHit hit,float.MaxValue ,Instance.floorLayerMask);
         mouseInfo.HitPoint = hit.point;
 
         return mouseInfo;
@@ -34,7 +35,7 @@ public class MouseWorld : MonoBehaviour
         unitInfo.IsClickAnyUnit = false;
         unitInfo.ClickedUnit = null;
         
-        if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, instance.unitLayerMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, Instance.unitLayerMask))
         {
             unitInfo.IsClickAnyUnit = true;
             unitInfo.HitPoint = hit.point;
@@ -49,6 +50,13 @@ public class MouseWorld : MonoBehaviour
         }
         
         return unitInfo;
+    }
+
+    public Vector3 GetMousePosition()
+    {
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, floorLayerMask);
+        return hit.point;
     }
     
     
