@@ -5,11 +5,18 @@ using UnityEngine;
 
 public class UnitSelectionSystem : MonoBehaviour
 {
+    public class OnSelectedUnitChangedEventArgs : EventArgs
+    {
+        public Unit OldUnit { get; set; }
+        public Unit NewUnit { get; set; }
+    }
+    public static event EventHandler<OnSelectedUnitChangedEventArgs> OnSelectedUnitChanged;
+    
     private Unit selectedUnit;
 
     private void Awake()
     {
-        selectedUnit = FindObjectOfType<Unit>();
+        selectedUnit = GameObject.Find("Unit_1").GetComponent<Unit>();
     }
 
     private void Update()
@@ -39,6 +46,12 @@ public class UnitSelectionSystem : MonoBehaviour
 
             if (unitInfo.ClickedUnit != null && unitInfo.ClickedUnit != selectedUnit)
             {
+                OnSelectedUnitChanged?.Invoke(this, new OnSelectedUnitChangedEventArgs
+                {
+                    OldUnit = selectedUnit,
+                    NewUnit = unitInfo.ClickedUnit
+                });
+                
                 selectedUnit = unitInfo.ClickedUnit;
                 return unitInfo.IsClickAnyUnit;
             }
