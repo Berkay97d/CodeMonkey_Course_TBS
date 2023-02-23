@@ -12,7 +12,7 @@ public class MouseVisual : MonoBehaviour
     
     private void AdjustPosition()
     {
-        var mouseInfo = MouseWorld.GetMouseInfo();
+        var mouseInfo = MouseWorld.GetMouseMovementInfo();
         
         if (mouseInfo.IsHit)
         {

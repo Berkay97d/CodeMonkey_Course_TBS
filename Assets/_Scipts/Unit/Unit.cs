@@ -14,19 +14,16 @@ public class Unit : MonoBehaviour
     private Vector3 targetPosition;
     private Vector3 direction;
 
+
+    private void Awake()
+    {
+        targetPosition = transform.position;
+    }
+
     private void Update()
     {
         HandleMovement();
         HandleRotation();
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            var mouse = MouseWorld.GetMouseInfo();
-            
-            if (!mouse.IsHit) return;
-            
-            Move(mouse.HitPoint);
-        }
     }
 
     private void HandleRotation()
@@ -49,7 +46,7 @@ public class Unit : MonoBehaviour
     }
 
 
-    private void Move(Vector3 targetPos)
+    public void Move(Vector3 targetPos)
     {
         targetPosition = targetPos;
     }
