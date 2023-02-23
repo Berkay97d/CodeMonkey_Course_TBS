@@ -13,7 +13,9 @@ public class Unit : MonoBehaviour
     
     private Vector3 targetPosition;
     private Vector3 direction;
+    private GridPosition currentGridPosition;
 
+    
 
     private void Awake()
     {
@@ -22,14 +24,15 @@ public class Unit : MonoBehaviour
 
     private void Start()
     {
-        var gridPos = LevelGrid.Instance.GridFromWorld(transform.position);
-        LevelGrid.Instance.SetUnitAtGridPosition(gridPos, this);
+        currentGridPosition = LevelGrid.Instance.GridFromWorld(transform.position);
+        LevelGrid.Instance.SetUnitAtGridPosition(currentGridPosition, this);
     }
 
     private void Update()
     {
         HandleMovement();
         HandleRotation();
+        CheckGridPosition();
     }
 
     private void HandleRotation()
@@ -51,14 +54,26 @@ public class Unit : MonoBehaviour
         }
     }
 
-
     public void Move(Vector3 targetPos)
     {
         targetPosition = targetPos;
     }
 
+    private void CheckGridPosition()
+    {
+        var newGridPos = LevelGrid.Instance.GridFromWorld(transform.position);
+
+        if (newGridPos != currentGridPosition)
+        {
+            LevelGrid.Instance.ControlUnitChangeGridPosition(this, currentGridPosition, newGridPos);
+            currentGridPosition = newGridPos;
+        }
+    }
+    
     public override string ToString()
     {
         return "Unit: " + name;
     }
+    
+    
 }

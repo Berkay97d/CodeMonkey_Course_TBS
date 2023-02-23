@@ -8,8 +8,8 @@ public class LevelGrid : MonoBehaviour
     public static LevelGrid Instance { get; private set; }
     
     private GridSystem gridSystem;
-            
-    
+
+
     private void Awake()
     {
         Instance = this;
@@ -39,5 +39,11 @@ public class LevelGrid : MonoBehaviour
     public GridPosition GridFromWorld(Vector3 worldPos)
     {
         return gridSystem.GripFromWorld(worldPos);
+    }
+
+    public void ControlUnitChangeGridPosition(Unit unit, GridPosition oldGrid, GridPosition newGrid)
+    {
+        ClearUnitAtGridPosition(oldGrid);
+        SetUnitAtGridPosition(newGrid, unit);
     }
 }
