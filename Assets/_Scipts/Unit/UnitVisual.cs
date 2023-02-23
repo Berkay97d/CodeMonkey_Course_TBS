@@ -16,11 +16,21 @@ public class UnitVisual : MonoBehaviour
     {
         if (e.NewUnit == unit)
         {
-            visual.SetActive(true);
+            Show();
         }
         else if (e.OldUnit == unit)
         {
-            visual.SetActive(false);
+            Hide();
         }
+    }
+
+    private void Show()
+    {
+        visual.SetActive(true);
+    }
+
+    private void Hide()
+    {
+        visual.SetActive(false);
     }
 }
