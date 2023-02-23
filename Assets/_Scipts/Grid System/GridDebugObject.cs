@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 
 public class GridDebugObject : MonoBehaviour
@@ -13,6 +14,11 @@ public class GridDebugObject : MonoBehaviour
             myGridObject = value;
             text.text = myGridObject.ToString();
         }
+    }
+
+    private void Update()
+    {
+        text.text = MyGridObject.ToString();
     }
 
     private GridObject myGridObject;

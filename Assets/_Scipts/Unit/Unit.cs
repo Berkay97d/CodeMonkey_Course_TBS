@@ -22,7 +22,8 @@ public class Unit : MonoBehaviour
 
     private void Start()
     {
-        //LevelGrid.Instance.SetUnitAtGridPosition();
+        var gridPos = LevelGrid.Instance.GridFromWorld(transform.position);
+        LevelGrid.Instance.SetUnitAtGridPosition(gridPos, this);
     }
 
     private void Update()
@@ -56,6 +57,8 @@ public class Unit : MonoBehaviour
         targetPosition = targetPos;
     }
 
-
-
+    public override string ToString()
+    {
+        return "Unit: " + name;
+    }
 }

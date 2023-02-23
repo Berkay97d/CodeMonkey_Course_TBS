@@ -1,4 +1,6 @@
 ﻿
+using UnityEngine;
+
 public class GridObject
 {
 
@@ -14,6 +16,10 @@ public class GridObject
     
     public override string ToString()
     {
+        if (UnitOn == null)
+        {
+            return gridPosition.ToString();
+        }
         return gridPosition.ToString() + "\n" + UnitOn;
     }
 }
