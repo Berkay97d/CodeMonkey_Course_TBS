@@ -5,7 +5,6 @@ public class GridDebugObject : MonoBehaviour
 {
     [SerializeField] private TMP_Text text;
     
-    
     public Grid MyGrid
     {
         get => myGrid;
@@ -15,8 +14,6 @@ public class GridDebugObject : MonoBehaviour
             text.text = myGrid.ToString();
         }
     }
-
-    
 
     private Grid myGrid;
 

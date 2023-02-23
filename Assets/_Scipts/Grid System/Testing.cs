@@ -14,10 +14,6 @@ namespace _Scipts.Grid_System
             gridSystem = new GridSystem(10, 10, 1f);
             gridSystem.CreateDebugObjects(prefab);
         }
-
-        private void Update()
-        {
-            Debug.Log(gridSystem.GripFromWorld(MouseWorld.Instance.GetMousePosition()));
-        }
+        
     }
 }

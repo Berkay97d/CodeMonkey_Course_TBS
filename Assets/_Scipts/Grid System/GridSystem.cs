@@ -4,10 +4,10 @@
 
 public class GridSystem
 {
-    private int width;
-    private int height;
-    private float cellSize;
-    private Grid[,] gridArray;
+    private readonly int width;
+    private readonly int height;
+    private readonly float cellSize;
+    private readonly Grid[,] gridArray;
     
     public GridSystem(int width, int height, float cellSize)
     {
