@@ -9,7 +9,7 @@ public class UnitVisual : MonoBehaviour
     
     private void Start()
     {
-        UnitSelectionSystem.OnSelectedUnitChanged += OnSelectedUnitChanged;
+        UnitSelectionSystem.Instance.OnSelectedUnitChanged += OnSelectedUnitChanged;
     }
 
     private void OnSelectedUnitChanged(object sender, UnitSelectionSystem.OnSelectedUnitChangedEventArgs e)

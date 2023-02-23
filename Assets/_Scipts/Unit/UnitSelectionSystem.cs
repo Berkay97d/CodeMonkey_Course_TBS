@@ -10,12 +10,16 @@ public class UnitSelectionSystem : MonoBehaviour
         public Unit OldUnit { get; set; }
         public Unit NewUnit { get; set; }
     }
-    public static event EventHandler<OnSelectedUnitChangedEventArgs> OnSelectedUnitChanged;
+
+    public static UnitSelectionSystem Instance { get; private set; }
+    public event EventHandler<OnSelectedUnitChangedEventArgs> OnSelectedUnitChanged;
     
     private Unit selectedUnit;
 
+    
     private void Awake()
     {
+        Instance = this;
         selectedUnit = GameObject.Find("Unit_1").GetComponent<Unit>();
     }
 
@@ -46,13 +50,7 @@ public class UnitSelectionSystem : MonoBehaviour
 
             if (unitInfo.ClickedUnit != null && unitInfo.ClickedUnit != selectedUnit)
             {
-                OnSelectedUnitChanged?.Invoke(this, new OnSelectedUnitChangedEventArgs
-                {
-                    OldUnit = selectedUnit,
-                    NewUnit = unitInfo.ClickedUnit
-                });
-                
-                selectedUnit = unitInfo.ClickedUnit;
+                SetSelectedUnit(unitInfo.ClickedUnit);
                 return unitInfo.IsClickAnyUnit;
             }
 
@@ -60,5 +58,17 @@ public class UnitSelectionSystem : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void SetSelectedUnit(Unit unit)
+    {
+        OnSelectedUnitChanged?.Invoke(this, new OnSelectedUnitChangedEventArgs
+        {
+            OldUnit = selectedUnit,
+            NewUnit = unit,
+        });
+        
+        selectedUnit = unit;
+        
     }
 }
