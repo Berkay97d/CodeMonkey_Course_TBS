@@ -1,12 +1,12 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class GridObject
 {
 
     private GridSystem gridSystem;
     private GridPosition gridPosition;
-    public Unit UnitOn { get; set; }
+    private List<Unit> unitsOn = new List<Unit>();
 
     public GridObject(GridSystem gridSystem, GridPosition gridPosition)
     {
@@ -16,10 +16,31 @@ public class GridObject
     
     public override string ToString()
     {
-        if (UnitOn == null)
+        if (unitsOn == null)
         {
             return gridPosition.ToString();
         }
-        return gridPosition.ToString() + "\n" + UnitOn;
+
+        string unitsString = "";
+        foreach (var unit in unitsOn)
+        {
+            unitsString += unit + "\n";
+        }
+        return gridPosition.ToString() + "\n" + unitsString;
+    }
+
+    public void AddUnit(Unit unit)
+    {
+        unitsOn.Add(unit);
+    }
+
+    public void RemoveUnit(Unit unit)
+    {
+        unitsOn.Remove(unit);
+    }
+
+    public List<Unit> GetUnitList()
+    {
+        return unitsOn;
     }
 }

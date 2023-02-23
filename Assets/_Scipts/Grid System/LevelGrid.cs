@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System.Collections.Generic;
 
 public class LevelGrid : MonoBehaviour
 {
@@ -18,22 +18,22 @@ public class LevelGrid : MonoBehaviour
         gridSystem.CreateDebugObjects(prefab);
     }
 
-    public void SetUnitAtGridPosition(GridPosition gridPosition, Unit unit)
+    public void AddUnitAtGridPosition(GridPosition gridPosition, Unit unit)
     {
         var gridObj = gridSystem.GetGrid(gridPosition);
-        gridObj.UnitOn = unit;
+        gridObj.AddUnit(unit);
     }
 
-    public Unit GetUnitAtGridPosition(GridPosition gridPosition)
+    public List<Unit> GetUnitsAtGridPosition(GridPosition gridPosition)
     {
         var gridObj = gridSystem.GetGrid(gridPosition);
-        return gridObj.UnitOn;
+        return gridObj.GetUnitList();
     }
 
-    public void ClearUnitAtGridPosition(GridPosition gridPosition)
+    public void RemoveUnitAtGridPosition(GridPosition gridPosition, Unit unit)
     {
         var gridObj = gridSystem.GetGrid(gridPosition);
-        gridObj.UnitOn = null;
+        gridObj.RemoveUnit(unit);
     }
 
     public GridPosition GridFromWorld(Vector3 worldPos)
@@ -43,7 +43,7 @@ public class LevelGrid : MonoBehaviour
 
     public void ControlUnitChangeGridPosition(Unit unit, GridPosition oldGrid, GridPosition newGrid)
     {
-        ClearUnitAtGridPosition(oldGrid);
-        SetUnitAtGridPosition(newGrid, unit);
+        RemoveUnitAtGridPosition(oldGrid, unit);
+        AddUnitAtGridPosition(newGrid, unit);
     }
 }
