@@ -4,7 +4,7 @@ public class GridObject
 
     private GridSystem gridSystem;
     private GridPosition gridPosition;
-    public Unit unitOn { get; set; }
+    public Unit UnitOn { get; set; }
 
     public GridObject(GridSystem gridSystem, GridPosition gridPosition)
     {
@@ -14,6 +14,6 @@ public class GridObject
     
     public override string ToString()
     {
-        return gridPosition.ToString() + "\n" + unitOn;
+        return gridPosition.ToString() + "\n" + UnitOn;
     }
 }

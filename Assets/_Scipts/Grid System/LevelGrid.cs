@@ -21,18 +21,18 @@ public class LevelGrid : MonoBehaviour
     public void SetUnitAtGridPosition(GridPosition gridPosition, Unit unit)
     {
         var gridObj = gridSystem.GetGrid(gridPosition);
-        gridObj.unitOn = unit;
+        gridObj.UnitOn = unit;
     }
 
     public Unit GetUnitAtGridPosition(GridPosition gridPosition)
     {
         var gridObj = gridSystem.GetGrid(gridPosition);
-        return gridObj.unitOn;
+        return gridObj.UnitOn;
     }
 
     public void ClearUnitAtGridPosition(GridPosition gridPosition)
     {
         var gridObj = gridSystem.GetGrid(gridPosition);
-        gridObj.unitOn = null;
+        gridObj.UnitOn = null;
     }
 }
