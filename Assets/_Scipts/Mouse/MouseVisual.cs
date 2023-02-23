@@ -13,7 +13,14 @@ public class MouseVisual : MonoBehaviour
     private void AdjustPosition()
     {
         var mouseInfo = MouseWorld.GetMouseMovementInfo();
-        
+        var unitInfo = MouseWorld.GetMouseUnitInfo();
+
+        if (unitInfo.IsClickAnyUnit)
+        {
+            renderer.enabled = true;
+            transform.position = unitInfo.HitPoint;
+            return;
+        }
         if (mouseInfo.IsHit)
         {
             renderer.enabled = true;

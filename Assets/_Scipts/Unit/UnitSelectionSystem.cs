@@ -14,7 +14,7 @@ public class UnitSelectionSystem : MonoBehaviour
 
     private void Update()
     {
-        HandleUnitSelection();
+        if(TryChangeSelectedUnit()) return;
 
         HandleSelectedUnitMovement();
     }
@@ -31,17 +31,21 @@ public class UnitSelectionSystem : MonoBehaviour
         }
     }
 
-    private void HandleUnitSelection()
+    private bool TryChangeSelectedUnit()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
-            var unit = MouseWorld.GetClickedUnit();
+            var unitInfo = MouseWorld.GetMouseUnitInfo();
 
-            if (unit != null && unit != selectedUnit)
+            if (unitInfo.ClickedUnit != null && unitInfo.ClickedUnit != selectedUnit)
             {
-                Debug.Log("YOK");
-                selectedUnit = unit;
+                selectedUnit = unitInfo.ClickedUnit;
+                return unitInfo.IsClickAnyUnit;
             }
+
+            return unitInfo.IsClickAnyUnit;
         }
+
+        return false;
     }
 }
