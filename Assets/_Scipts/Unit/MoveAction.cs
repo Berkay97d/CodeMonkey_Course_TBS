@@ -49,14 +49,14 @@ public class MoveAction : MonoBehaviour
         
     }
     
-    public void Move(Vector3 targetPos)
+    public void Move(GridPosition gridPosition)
     {
-        targetPosition = targetPos;
+        targetPosition = LevelGrid.Instance.WorldFromGrid(gridPosition);
     }
 
     public bool IsValidActionGridPosition(GridPosition gridPosition)
     {
-        return validGridPositions.Contains(gridPosition);
+        return GetValidGridPositionList().Contains(gridPosition);
     }
     public List<GridPosition> GetValidGridPositionList()
     {

@@ -34,7 +34,7 @@ public class GridSystem
         return new Vector3(gridPosition.x, 0, gridPosition.z) * cellSize;
     }
 
-    public GridPosition GripFromWorld(Vector3 worldPosition)
+    public GridPosition GridFromWorld(Vector3 worldPosition)
     {
         return new GridPosition(
             Mathf.RoundToInt(worldPosition.x / cellSize),

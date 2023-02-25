@@ -38,8 +38,13 @@ public class LevelGrid : MonoBehaviour
 
     public GridPosition GridFromWorld(Vector3 worldPos)
     {
-        return gridSystem.GripFromWorld(worldPos);
+        return gridSystem.GridFromWorld(worldPos);
     }
+
+    public Vector3 WorldFromGrid(GridPosition gridPosition)
+    {
+        return gridSystem.WorldFromGrid(gridPosition);
+    } 
 
     public void ControlUnitChangeGridPosition(Unit unit, GridPosition oldGrid, GridPosition newGrid)
     {
