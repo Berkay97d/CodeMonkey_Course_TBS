@@ -10,7 +10,6 @@ public class UnitSelectionSystem : MonoBehaviour
         public Unit OldUnit { get; set; }
         public Unit NewUnit { get; set; }
     }
-
     public static UnitSelectionSystem Instance { get; private set; }
     public event EventHandler<OnSelectedUnitChangedEventArgs> OnSelectedUnitChanged;
     
@@ -38,7 +37,7 @@ public class UnitSelectionSystem : MonoBehaviour
 
             if (!mouse.IsHit) return;
 
-            selectedUnit.Move(mouse.HitPoint);
+            selectedUnit.GetMoveAction().Move(mouse.HitPoint);
         }
     }
 

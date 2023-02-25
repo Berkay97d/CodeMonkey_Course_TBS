@@ -11,7 +11,7 @@ public class UnitAnimationController : MonoBehaviour
 
     private void Update()
     {
-        if (unit.IsWalking)
+        if (unit.GetMoveAction().IsWalking)
         {
             StartWalking();
         }
