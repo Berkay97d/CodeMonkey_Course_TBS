@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveAction : MonoBehaviour
@@ -6,14 +7,18 @@ public class MoveAction : MonoBehaviour
     [SerializeField] private float stopingTreshold;
     [SerializeField] private float unitSpeed;
     [SerializeField] private float rotateSpeed;
+    [SerializeField] private int maxMoveRange;
+    
 
     public bool IsWalking { get; private set; }
 
+    private Unit unit;
     private Vector3 targetPosition;
     private Vector3 direction;
 
     private void Awake()
     {
+        unit = GetComponent<Unit>();
         targetPosition = transform.position;
     }
 
@@ -46,5 +51,24 @@ public class MoveAction : MonoBehaviour
     public void Move(Vector3 targetPos)
     {
         targetPosition = targetPos;
+    }
+
+    public List<GridPosition> GetValidGridPositionList()
+    {
+        var validPositions = new List<GridPosition>();
+
+        var unitGridPosition = unit.GetGridPosition();
+        
+        for (int x = -maxMoveRange; x <= maxMoveRange; x++)
+        {
+            for (int z = -maxMoveRange ; z < maxMoveRange; z++)
+            {
+                var offsetGridPos = new GridPosition(x, z);
+                var testGridPos = unitGridPosition + offsetGridPos;
+                Debug.Log(testGridPos);
+            }
+        }
+        
+        return validPositions;
     }
 }

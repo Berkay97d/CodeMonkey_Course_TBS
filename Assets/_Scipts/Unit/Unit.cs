@@ -41,6 +41,11 @@ public class Unit : MonoBehaviour
     {
         return "Unit: " + name;
     }
+
+    public GridPosition GetGridPosition()
+    {
+        return currentGridPosition;
+    }
     
     
 }
