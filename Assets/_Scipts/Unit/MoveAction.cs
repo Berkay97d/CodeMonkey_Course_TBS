@@ -61,7 +61,7 @@ public class MoveAction : MonoBehaviour
         
         for (int x = -maxMoveRange; x <= maxMoveRange; x++)
         {
-            for (int z = -maxMoveRange ; z < maxMoveRange; z++)
+            for (int z = -maxMoveRange ; z <= maxMoveRange; z++)
             {
                 var offsetGridPos = new GridPosition(x, z);
                 var testGridPos = unitGridPosition + offsetGridPos;
