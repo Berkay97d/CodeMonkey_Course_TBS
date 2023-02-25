@@ -9,10 +9,10 @@ public class UnitVisual : MonoBehaviour
     
     private void Start()
     {
-        UnitSelectionSystem.Instance.OnSelectedUnitChanged += OnSelectedUnitChanged;
+        UnitActionSystem.Instance.OnSelectedUnitChanged += OnSelectedUnitChanged;
     }
 
-    private void OnSelectedUnitChanged(object sender, UnitSelectionSystem.OnSelectedUnitChangedEventArgs e)
+    private void OnSelectedUnitChanged(object sender, UnitActionSystem.OnSelectedUnitChangedEventArgs e)
     {
         if (e.NewUnit == unit)
         {

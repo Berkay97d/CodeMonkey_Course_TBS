@@ -30,10 +30,10 @@ public class CameraController : MonoBehaviour
     {
         camera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = new Vector3(0, 10, -10);
         
-        UnitSelectionSystem.Instance.OnSelectedUnitChanged += InstanceOnOnSelectedUnitChanged;
+        UnitActionSystem.Instance.OnSelectedUnitChanged += InstanceOnOnSelectedUnitChanged;
     }
 
-    private void InstanceOnOnSelectedUnitChanged(object sender, UnitSelectionSystem.OnSelectedUnitChangedEventArgs e)
+    private void InstanceOnOnSelectedUnitChanged(object sender, UnitActionSystem.OnSelectedUnitChangedEventArgs e)
     {
         isOnAnimation = true;
         transform.DOMove(e.NewUnit.transform.position, newSelectedUnitLerpTime).SetEase(Ease.OutQuad).OnComplete(() =>

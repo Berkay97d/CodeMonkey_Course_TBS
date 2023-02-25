@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitSelectionSystem : MonoBehaviour
+public class UnitActionSystem : MonoBehaviour
 {
     public class OnSelectedUnitChangedEventArgs : EventArgs
     {
         public Unit OldUnit { get; set; }
         public Unit NewUnit { get; set; }
     }
-    public static UnitSelectionSystem Instance { get; private set; }
+    public static UnitActionSystem Instance { get; private set; }
     public event EventHandler<OnSelectedUnitChangedEventArgs> OnSelectedUnitChanged;
     
     private Unit selectedUnit;
