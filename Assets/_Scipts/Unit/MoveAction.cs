@@ -15,6 +15,7 @@ public class MoveAction : MonoBehaviour
     private Unit unit;
     private Vector3 targetPosition;
     private Vector3 direction;
+    private readonly List<GridPosition> validGridPositions = new List<GridPosition>();
 
     private void Awake()
     {
@@ -53,10 +54,14 @@ public class MoveAction : MonoBehaviour
         targetPosition = targetPos;
     }
 
+    public bool IsValidActionGridPosition(GridPosition gridPosition)
+    {
+        return validGridPositions.Contains(gridPosition);
+    }
     public List<GridPosition> GetValidGridPositionList()
     {
-        var validPositions = new List<GridPosition>();
-
+        validGridPositions.Clear();
+        
         var unitGridPosition = unit.GetGridPosition();
         
         for (int x = -maxMoveRange; x <= maxMoveRange; x++)
@@ -80,10 +85,12 @@ public class MoveAction : MonoBehaviour
                 {
                     continue;
                 }
+                
+                validGridPositions.Add(testGridPos);
                 Debug.Log(testGridPos);
             }
         }
         
-        return validPositions;
+        return validGridPositions;
     }
 }
