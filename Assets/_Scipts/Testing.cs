@@ -11,7 +11,7 @@ namespace _Scipts.Grid_System
         {
             if (Input.GetKeyDown(KeyCode.T))
             {
-                unit.GetMoveAction().GetValidGridPositionList();
+                GridSystemVisual.Instance.ShowMovableGridVisuals(unit.GetMoveAction().GetValidGridPositionList());
             }
         }
     }
