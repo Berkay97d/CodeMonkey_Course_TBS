@@ -14,6 +14,7 @@ public class UnitActionSystem : MonoBehaviour
     public event EventHandler<OnSelectedUnitChangedEventArgs> OnSelectedUnitChanged;
     
     private Unit selectedUnit;
+    private bool isBusy;
 
     
     private void Awake()
@@ -25,6 +26,7 @@ public class UnitActionSystem : MonoBehaviour
     private void Update()
     {
         if(TryChangeSelectedUnit()) return;
+        if(isBusy) return;
 
         HandleSelectedUnitMovement();
         HandleSelectedUnitRotation();
@@ -42,7 +44,8 @@ public class UnitActionSystem : MonoBehaviour
 
             if (selectedUnit.GetMoveAction().IsValidActionGridPosition(mouseGridPos))
             {
-                selectedUnit.GetMoveAction().Move(mouseGridPos);
+                SetBusy();
+                selectedUnit.GetMoveAction().Move(mouseGridPos, Release);
             }
         }
     }
@@ -51,7 +54,8 @@ public class UnitActionSystem : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            selectedUnit.GetSpinAction().Spin();
+            SetBusy();
+            selectedUnit.GetSpinAction().Spin(Release);
         }
     }
 
@@ -84,8 +88,20 @@ public class UnitActionSystem : MonoBehaviour
         selectedUnit = unit;
     }
 
+    private void SetBusy()
+    {
+        isBusy = true;
+    }
+
+    private void Release()
+    {
+        isBusy = false;
+        Debug.Log("RELEASED");
+    }
     public Unit GetSelectedUnit()
     {
         return selectedUnit;
     }
+    
+    
 }

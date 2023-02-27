@@ -43,6 +43,7 @@ public class MoveAction : BaseAction
         {
             IsWalking = false;
             isActive = false;
+            onActionComplete();
         }
     }
 
@@ -52,8 +53,9 @@ public class MoveAction : BaseAction
         transform.forward = Vector3.Lerp(transform.forward, direction, Time.deltaTime * rotateSpeed);
     }
     
-    public void Move(GridPosition gridPosition)
+    public void Move(GridPosition gridPosition, Action onMoveComplete)
     {
+        onActionComplete = onMoveComplete;
         targetPosition = LevelGrid.Instance.WorldFromGrid(gridPosition);
         isActive = true;
     }
