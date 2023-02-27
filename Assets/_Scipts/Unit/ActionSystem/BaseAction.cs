@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class BaseAction :  MonoBehaviour
+public abstract class BaseAction :  MonoBehaviour
 {
     protected Unit unit;
     protected bool isActive;
@@ -12,4 +12,6 @@ public class BaseAction :  MonoBehaviour
     {
         unit = GetComponent<Unit>();
     }
+
+    public abstract string GetActionName();
 }
