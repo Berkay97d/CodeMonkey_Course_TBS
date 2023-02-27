@@ -9,14 +9,14 @@ public class MoveAction : BaseAction
     [SerializeField] private float rotateSpeed;
     [SerializeField] private int maxMoveRange;
     
-
     public bool IsWalking { get; private set; }
-
     
     private Vector3 targetPosition;
     private Vector3 direction;
     private readonly List<GridPosition> validGridPositions = new List<GridPosition>();
 
+    
+    
     protected override void Awake()
     {
         base.Awake();
@@ -27,7 +27,6 @@ public class MoveAction : BaseAction
     {
         if (!isActive) return;
         
-
         HandleMovement();
         HandleRotation();
     }
@@ -49,8 +48,8 @@ public class MoveAction : BaseAction
 
     private void HandleRotation()
     {
+        Debug.Log("ROTATION");
         transform.forward = Vector3.Lerp(transform.forward, direction, Time.deltaTime * rotateSpeed);
-        
     }
     
     public void Move(GridPosition gridPosition)
@@ -93,7 +92,6 @@ public class MoveAction : BaseAction
                 }
                 
                 validGridPositions.Add(testGridPos);
-                Debug.Log(testGridPos);
             }
         }
         
