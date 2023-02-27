@@ -5,13 +5,20 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField] private MoveAction moveAction;
-    [SerializeField] private SpinAction spinAction;
-    
     
     private GridPosition currentGridPosition;
+    private MoveAction moveAction;
+    private SpinAction spinAction;
+    private BaseAction[] actions;
 
     
+    private void Awake()
+    {
+        moveAction = GetComponent<MoveAction>();
+        spinAction = GetComponent<SpinAction>();
+        actions = GetComponents<BaseAction>();
+    }
+
     private void Start()
     {
         currentGridPosition = LevelGrid.Instance.GridFromWorld(transform.position);
@@ -52,6 +59,11 @@ public class Unit : MonoBehaviour
     public GridPosition GetGridPosition()
     {
         return currentGridPosition;
+    }
+
+    public BaseAction[] GetActions()
+    {
+        return actions;
     }
     
     
