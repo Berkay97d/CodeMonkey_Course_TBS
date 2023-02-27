@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveAction : MonoBehaviour
+public class MoveAction : BaseAction
 {
     [SerializeField] private float stopingTreshold;
     [SerializeField] private float unitSpeed;
@@ -12,19 +12,22 @@ public class MoveAction : MonoBehaviour
 
     public bool IsWalking { get; private set; }
 
-    private Unit unit;
+    
     private Vector3 targetPosition;
     private Vector3 direction;
     private readonly List<GridPosition> validGridPositions = new List<GridPosition>();
 
-    private void Awake()
+    protected override void Awake()
     {
-        unit = GetComponent<Unit>();
+        base.Awake();
         targetPosition = transform.position;
     }
 
     private void Update()
     {
+        if (!isActive) return;
+        
+
         HandleMovement();
         HandleRotation();
     }
@@ -40,6 +43,7 @@ public class MoveAction : MonoBehaviour
         else
         {
             IsWalking = false;
+            isActive = false;
         }
     }
 
@@ -52,12 +56,14 @@ public class MoveAction : MonoBehaviour
     public void Move(GridPosition gridPosition)
     {
         targetPosition = LevelGrid.Instance.WorldFromGrid(gridPosition);
+        isActive = true;
     }
 
     public bool IsValidActionGridPosition(GridPosition gridPosition)
     {
         return GetValidGridPositionList().Contains(gridPosition);
     }
+    
     public List<GridPosition> GetValidGridPositionList()
     {
         validGridPositions.Clear();

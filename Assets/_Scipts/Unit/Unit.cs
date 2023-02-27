@@ -6,6 +6,8 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     [SerializeField] private MoveAction moveAction;
+    [SerializeField] private SpinAction spinAction;
+    
     
     private GridPosition currentGridPosition;
 
@@ -35,6 +37,11 @@ public class Unit : MonoBehaviour
     public MoveAction GetMoveAction()
     {
         return moveAction;
+    }
+
+    public SpinAction GetSpinAction()
+    {
+        return spinAction;
     }
     
     public override string ToString()
