@@ -73,6 +73,10 @@ public class UnitActionSystem : MonoBehaviour
         });
         
         selectedUnit = unit;
-        
+    }
+
+    public Unit GetSelectedUnit()
+    {
+        return selectedUnit;
     }
 }

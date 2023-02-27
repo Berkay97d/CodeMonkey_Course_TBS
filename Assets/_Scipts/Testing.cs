@@ -7,12 +7,6 @@ namespace _Scipts.Grid_System
     {
         [SerializeField] private Unit  unit;
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                GridSystemVisual.Instance.ShowMovableGridVisuals(unit.GetMoveAction().GetValidGridPositionList());
-            }
-        }
+      
     }
 }
