@@ -8,7 +8,7 @@ public class UnitActionSystemUI : MonoBehaviour
     [SerializeField] private Transform actionButtonPrefab;
     [SerializeField] private Transform actionButtonContainer;
 
-    private List<Transform> actionButtons;
+    private List<Transform> actionButtons = new List<Transform>();
     
     private void Start()
     {
@@ -24,14 +24,22 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void CreateUnitActionButtons(Unit selectedUnit)
     {
-        selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
-        
-        actionButtons.Clear();
-        
+        ClearOldButtons();
+
         foreach (var action in selectedUnit.GetActions())
         {
             var button = Instantiate(actionButtonPrefab, actionButtonContainer);
             actionButtons.Add(button);
         }
+    }
+
+    private void ClearOldButtons()
+    {
+        foreach (var button in actionButtons)
+        {
+            Destroy(button.gameObject);
+        }
+
+        actionButtons.Clear();
     }
 }
