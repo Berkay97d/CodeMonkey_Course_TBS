@@ -23,7 +23,7 @@ public class SpinAction : BaseAction
         }
     }
 
-    public void Spin(Action onSpinComplete)
+    public override void DoAction(GridPosition gridPosition, Action onSpinComplete)
     {
         onActionComplete = onSpinComplete;
         isActive = true;
@@ -34,4 +34,5 @@ public class SpinAction : BaseAction
     {
         return "Spin";
     }
+    
 }

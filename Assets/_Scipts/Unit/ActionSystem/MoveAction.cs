@@ -27,6 +27,7 @@ public class MoveAction : BaseAction
     {
         return "Move";
     }
+    
 
     private void Update()
     {
@@ -58,7 +59,7 @@ public class MoveAction : BaseAction
         transform.forward = Vector3.Lerp(transform.forward, direction, Time.deltaTime * rotateSpeed);
     }
     
-    public void Move(GridPosition gridPosition, Action onMoveComplete)
+    public override void DoAction(GridPosition gridPosition, Action onMoveComplete)
     {
         onActionComplete = onMoveComplete;
         targetPosition = LevelGrid.Instance.WorldFromGrid(gridPosition);

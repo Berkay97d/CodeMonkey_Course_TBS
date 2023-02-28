@@ -12,15 +12,16 @@ public class UnitActionSystem : MonoBehaviour
     }
     public static UnitActionSystem Instance { get; private set; }
     public event EventHandler<OnSelectedUnitChangedEventArgs> OnSelectedUnitChanged;
+    public BaseAction selectedAction { get; set; }
     
     private Unit selectedUnit;
     private bool isBusy;
 
-    
+
     private void Awake()
     {
         Instance = this;
-        selectedUnit = GameObject.Find("Unit_1").GetComponent<Unit>();
+        //selectedUnit = GameObject.Find("Unit_1").GetComponent<Unit>();
     }
 
     private void Update()
@@ -28,36 +29,39 @@ public class UnitActionSystem : MonoBehaviour
         if(TryChangeSelectedUnit()) return;
         if(isBusy) return;
 
-        HandleSelectedUnitMovement();
-        HandleSelectedUnitRotation();
+        HandleAction();
     }
 
-    private void HandleSelectedUnitMovement()
+    private void HandleAction()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!Input.GetMouseButtonDown(0)) return;
+
+        var mouse = MouseWorld.GetMouseMovementInfo();
+        
+        if (!mouse.IsHit) return;
+        
+        var mouseGridPos = LevelGrid.Instance.GridFromWorld(MouseWorld.Instance.GetMousePosition());
+        
+        if (selectedAction is MoveAction)
         {
-            var mouse = MouseWorld.GetMouseMovementInfo();
-
-            if (!mouse.IsHit) return;
-
-            var mouseGridPos = LevelGrid.Instance.GridFromWorld(MouseWorld.Instance.GetMousePosition());
 
             if (selectedUnit.GetMoveAction().IsValidActionGridPosition(mouseGridPos))
             {
                 SetBusy();
-                selectedUnit.GetMoveAction().Move(mouseGridPos, Release);
+                selectedUnit.GetMoveAction().DoAction(mouseGridPos, Release);
             }
+            
+            return;
         }
-    }
 
-    private void HandleSelectedUnitRotation()
-    {
-        if (Input.GetMouseButtonDown(1))
+        if (selectedAction is SpinAction)
         {
             SetBusy();
-            selectedUnit.GetSpinAction().Spin(Release);
+            selectedUnit.GetSpinAction().DoAction(mouseGridPos, Release);
+            return;
         }
     }
+    
 
     private bool TryChangeSelectedUnit()
     {
@@ -76,7 +80,22 @@ public class UnitActionSystem : MonoBehaviour
 
         return false;
     }
+    
+    private void SetBusy()
+    {
+        isBusy = true;
+    }
 
+    private void Release()
+    {
+        isBusy = false;
+    }
+    
+    public Unit GetSelectedUnit()
+    {
+        return selectedUnit;
+    }
+    
     private void SetSelectedUnit(Unit unit)
     {
         OnSelectedUnitChanged?.Invoke(this, new OnSelectedUnitChangedEventArgs
@@ -86,21 +105,6 @@ public class UnitActionSystem : MonoBehaviour
         });
         
         selectedUnit = unit;
-    }
-
-    private void SetBusy()
-    {
-        isBusy = true;
-    }
-
-    private void Release()
-    {
-        isBusy = false;
-        Debug.Log("RELEASED");
-    }
-    public Unit GetSelectedUnit()
-    {
-        return selectedUnit;
     }
     
     
