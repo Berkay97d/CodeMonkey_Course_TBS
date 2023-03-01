@@ -23,11 +23,6 @@ public class UnitActionSystem : MonoBehaviour
         Instance = this;
         selectedUnit = GameObject.Find("Unit_1").GetComponent<Unit>();
     }
-
-    private void Start()
-    {
-        OnSelectedUnitChanged += OnOnSelectedUnitChanged;
-    }
     
     private void Update()
     {
@@ -35,11 +30,6 @@ public class UnitActionSystem : MonoBehaviour
         if(isBusy) return;
 
         HandleAction();
-    }
-
-    private void OnOnSelectedUnitChanged(object sender, OnSelectedUnitChangedEventArgs e)
-    {
-        selectedAction = null;
     }
     
     private void HandleAction()
@@ -72,7 +62,6 @@ public class UnitActionSystem : MonoBehaviour
         }
     }
     
-
     private bool TryChangeSelectedUnit()
     {
         if (Input.GetMouseButtonDown(0))
@@ -115,6 +104,7 @@ public class UnitActionSystem : MonoBehaviour
         });
         
         selectedUnit = unit;
+        selectedAction = selectedUnit.GetMoveAction();
     }
     
     
