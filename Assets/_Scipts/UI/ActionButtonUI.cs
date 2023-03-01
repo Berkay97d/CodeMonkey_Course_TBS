@@ -7,8 +7,10 @@ public class ActionButtonUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text text;
     [SerializeField] private Button button;
+    
     private BaseAction action;
 
+    
     private void Awake()
     {
         button.onClick.AddListener(() =>
