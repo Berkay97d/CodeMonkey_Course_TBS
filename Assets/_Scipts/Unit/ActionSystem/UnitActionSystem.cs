@@ -21,9 +21,14 @@ public class UnitActionSystem : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        //selectedUnit = GameObject.Find("Unit_1").GetComponent<Unit>();
+        selectedUnit = GameObject.Find("Unit_1").GetComponent<Unit>();
     }
 
+    private void Start()
+    {
+        OnSelectedUnitChanged += OnOnSelectedUnitChanged;
+    }
+    
     private void Update()
     {
         if(TryChangeSelectedUnit()) return;
@@ -32,6 +37,11 @@ public class UnitActionSystem : MonoBehaviour
         HandleAction();
     }
 
+    private void OnOnSelectedUnitChanged(object sender, OnSelectedUnitChangedEventArgs e)
+    {
+        selectedAction = null;
+    }
+    
     private void HandleAction()
     {
         if (!Input.GetMouseButtonDown(0)) return;

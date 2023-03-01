@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ActionButtonUI : MonoBehaviour
 {
-    [SerializeField] private TMP_Text text;
+    [SerializeField] private TMP_Text text;    
     [SerializeField] private Button button;
     
     private BaseAction action;
@@ -14,6 +14,14 @@ public class ActionButtonUI : MonoBehaviour
     private void Awake()
     {
         button.onClick.AddListener(() =>
+        {
+            UnitActionSystem.Instance.selectedAction = action;
+        });
+    }
+
+    private void OnDestroy()
+    {
+        button.onClick.RemoveListener(() =>
         {
             UnitActionSystem.Instance.selectedAction = action;
         });

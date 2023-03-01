@@ -5,6 +5,11 @@ public class MouseVisual : MonoBehaviour
 {
     [SerializeField] private MeshRenderer renderer;
     
+    private void Start()
+    {
+        Cursor.visible = false;
+    }
+
     private void FixedUpdate()
     {
         AdjustPosition();
