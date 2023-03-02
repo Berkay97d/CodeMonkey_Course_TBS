@@ -21,7 +21,7 @@ public class UnitActionSystem : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        selectedUnit = GameObject.Find("Unit_1").GetComponent<Unit>();
+        SetSelectedUnit(GameObject.Find("Unit_1").GetComponent<Unit>()); 
     }
     
     private void Update()
@@ -42,23 +42,22 @@ public class UnitActionSystem : MonoBehaviour
         
         var mouseGridPos = LevelGrid.Instance.GridFromWorld(MouseWorld.Instance.GetMousePosition());
         
-        if (selectedAction is MoveAction)
+        switch (selectedAction)
         {
-
-            if (selectedUnit.GetMoveAction().IsValidActionGridPosition(mouseGridPos))
+            case MoveAction:
             {
-                SetBusy();
-                selectedUnit.GetMoveAction().DoAction(mouseGridPos, Release);
-            }
+                if (selectedUnit.GetMoveAction().IsValidActionGridPosition(mouseGridPos))
+                {
+                    SetBusy();
+                    selectedUnit.GetMoveAction().DoAction(mouseGridPos, Release);
+                }
             
-            return;
-        }
-
-        if (selectedAction is SpinAction)
-        {
-            SetBusy();
-            selectedUnit.GetSpinAction().DoAction(mouseGridPos, Release);
-            return;
+                return;
+            }
+            case SpinAction:
+                SetBusy();
+                selectedUnit.GetSpinAction().DoAction(mouseGridPos, Release);
+                return;
         }
     }
     
