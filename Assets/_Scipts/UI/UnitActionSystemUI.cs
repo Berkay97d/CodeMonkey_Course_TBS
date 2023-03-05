@@ -7,6 +7,7 @@ public class UnitActionSystemUI : MonoBehaviour
 {
     [SerializeField] private Transform actionButtonPrefab;
     [SerializeField] private Transform actionButtonContainer;
+    
 
     private List<Transform> actionButtons = new List<Transform>();
     
@@ -42,5 +43,10 @@ public class UnitActionSystemUI : MonoBehaviour
         }
 
         actionButtons.Clear();
+    }
+
+    private void UpdateSelectedVisual()
+    {
+        
     }
 }
