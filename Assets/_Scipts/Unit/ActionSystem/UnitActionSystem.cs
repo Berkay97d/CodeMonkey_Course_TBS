@@ -48,6 +48,7 @@ public class UnitActionSystem : MonoBehaviour
 
         if (selectedAction.IsValidActionGridPosition(mouseGridPos))
         {
+            SetBusy();
             selectedAction.DoAction(mouseGridPos, Release);
         }
         
