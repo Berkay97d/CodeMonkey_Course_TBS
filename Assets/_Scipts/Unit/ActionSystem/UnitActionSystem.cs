@@ -14,7 +14,8 @@ public class UnitActionSystem : MonoBehaviour
     public static UnitActionSystem Instance { get; private set; }
     public event EventHandler<OnSelectedUnitChangedEventArgs> OnSelectedUnitChanged;
     public event EventHandler OnSelectedActionChanged;
-    public event EventHandler<bool> OnBusyStateChanged; 
+    public event EventHandler<bool> OnBusyStateChanged;
+    public event EventHandler OnActionStarted;
 
     private BaseAction selectedAction;
     private Unit selectedUnit;
@@ -52,8 +53,12 @@ public class UnitActionSystem : MonoBehaviour
 
         if (selectedAction.IsValidActionGridPosition(mouseGridPos))
         {
-            SetBusy();
-            selectedAction.DoAction(mouseGridPos, Release);
+            if (selectedUnit.TrySpendActionPoints(selectedAction))
+            {
+                SetBusy();
+                selectedAction.DoAction(mouseGridPos, Release);
+                OnActionStarted?.Invoke(this, EventArgs.Empty);
+            }
         }
         
     }
@@ -106,17 +111,18 @@ public class UnitActionSystem : MonoBehaviour
         
     }
 
+    public BaseAction GetSelectedAction()
+    {
+        return selectedAction;
+    }
+    
     public void SetSelectedAction(BaseAction baseAction)
     {
         selectedAction = baseAction;
         
         OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
     }
-
-    public BaseAction GetSelectedAction()
-    {
-        return selectedAction;
-    }
+    
     
     
     
