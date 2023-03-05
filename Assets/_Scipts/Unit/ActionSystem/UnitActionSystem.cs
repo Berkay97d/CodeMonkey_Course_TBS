@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UnitActionSystem : MonoBehaviour
 {
@@ -30,8 +31,9 @@ public class UnitActionSystem : MonoBehaviour
 
     private void Update()
     {
-        if(TryChangeSelectedUnit()) return;
         if(isBusy) return;
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        if(TryChangeSelectedUnit()) return;
 
         HandleAction();
     }
