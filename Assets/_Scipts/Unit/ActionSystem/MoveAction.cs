@@ -65,13 +65,8 @@ public class MoveAction : BaseAction
         targetPosition = LevelGrid.Instance.WorldFromGrid(gridPosition);
         isActive = true;
     }
-
-    public bool IsValidActionGridPosition(GridPosition gridPosition)
-    {
-        return GetValidGridPositionList().Contains(gridPosition);
-    }
     
-    public List<GridPosition> GetValidGridPositionList()
+    public override List<GridPosition> GetValidGridPositionList()
     {
         validGridPositions.Clear();
         

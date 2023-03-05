@@ -55,8 +55,11 @@ public class UnitActionSystem : MonoBehaviour
                 return;
             }
             case SpinAction:
-                SetBusy();
-                selectedUnit.GetSpinAction().DoAction(mouseGridPos, Release);
+                if (selectedUnit.GetSpinAction().IsValidActionGridPosition(mouseGridPos))
+                {
+                    SetBusy();
+                    selectedUnit.GetSpinAction().DoAction(mouseGridPos, Release);
+                }
                 return;
         }
     }
