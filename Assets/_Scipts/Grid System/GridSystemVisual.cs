@@ -57,7 +57,7 @@ public class GridSystemVisual : MonoBehaviour
 
     private void UpdateGridVisual()
     {
-        var selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
-        ShowMovableGridVisuals(selectedUnit.GetMoveAction().GetValidGridPositionList());
+        var selectedAct = UnitActionSystem.Instance.selectedAction;
+        ShowMovableGridVisuals(selectedAct.GetValidGridPositionList());
     }
 }
