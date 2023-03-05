@@ -5,22 +5,30 @@ using UnityEngine;
 
 public class UnitActionSystemUI : MonoBehaviour
 {
-    [SerializeField] private Transform actionButtonPrefab;
+    [SerializeField] private ActionButtonUI actionButtonPrefab;
     [SerializeField] private Transform actionButtonContainer;
     
 
-    private List<Transform> actionButtons = new List<Transform>();
+    private List<ActionButtonUI> actionButtons = new List<ActionButtonUI>();
     
     private void Start()
     {
         CreateUnitActionButtons(UnitActionSystem.Instance.GetSelectedUnit());
+        UpdateSelectedVisual();
         
-        UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystemOnOnSelectedUnitChanged;
+        UnitActionSystem.Instance.OnSelectedUnitChanged += OnSelectedUnitChanged;
+        UnitActionSystem.Instance.OnSelectedActionChanged += OnSelectedActionChanged;
     }
 
-    private void UnitActionSystemOnOnSelectedUnitChanged(object sender, UnitActionSystem.OnSelectedUnitChangedEventArgs e)
+    private void OnSelectedActionChanged(object sender, EventArgs e)
+    {
+        UpdateSelectedVisual();
+    }
+
+    private void OnSelectedUnitChanged(object sender, UnitActionSystem.OnSelectedUnitChangedEventArgs e)
     {
         CreateUnitActionButtons(e.NewUnit);
+        UpdateSelectedVisual();
     }
 
     private void CreateUnitActionButtons(Unit selectedUnit)
@@ -30,8 +38,8 @@ public class UnitActionSystemUI : MonoBehaviour
         foreach (var action in selectedUnit.GetActions())
         {
             var button = Instantiate(actionButtonPrefab, actionButtonContainer);
-            actionButtons.Add(button.transform);
-            button.GetComponent<ActionButtonUI>().SetBaseAction(action);
+            actionButtons.Add(button);
+            button.SetBaseAction(action);
         }
     }
 
@@ -39,7 +47,7 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         foreach (var button in actionButtons)
         {
-            Destroy(button.gameObject);
+            Destroy(button.transform.gameObject);
         }
 
         actionButtons.Clear();
@@ -47,6 +55,9 @@ public class UnitActionSystemUI : MonoBehaviour
 
     private void UpdateSelectedVisual()
     {
-        
+        foreach (var button in actionButtons)
+        {
+            button.UpdateSelectedVisual();
+        }
     }
 }

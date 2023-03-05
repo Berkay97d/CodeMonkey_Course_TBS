@@ -7,6 +7,8 @@ public class ActionButtonUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text text;    
     [SerializeField] private Button button;
+    [SerializeField] private Transform selectedVisual;
+    
     
     private BaseAction action;
 
@@ -15,7 +17,7 @@ public class ActionButtonUI : MonoBehaviour
     {
         button.onClick.AddListener(() =>
         {
-            UnitActionSystem.Instance.selectedAction = action;
+            UnitActionSystem.Instance.SetSelectedAction(action);
         });
     }
 
@@ -23,7 +25,7 @@ public class ActionButtonUI : MonoBehaviour
     {
         button.onClick.RemoveListener(() =>
         {
-            UnitActionSystem.Instance.selectedAction = action;
+            UnitActionSystem.Instance.SetSelectedAction(action); 
         });
     }
 
@@ -33,5 +35,10 @@ public class ActionButtonUI : MonoBehaviour
         this.action = action;
     }
 
+    public void UpdateSelectedVisual()
+    {
+        selectedVisual.gameObject.SetActive(UnitActionSystem.Instance.GetSelectedAction() == action);
+    }
     
+
 }

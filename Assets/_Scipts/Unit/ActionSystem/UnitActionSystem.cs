@@ -13,8 +13,9 @@ public class UnitActionSystem : MonoBehaviour
     }
     public static UnitActionSystem Instance { get; private set; }
     public event EventHandler<OnSelectedUnitChangedEventArgs> OnSelectedUnitChanged;
-    public BaseAction selectedAction { get; set; }
+    public event EventHandler OnSelectedActionChanged;
     
+    private BaseAction selectedAction;
     private Unit selectedUnit;
     private bool isBusy;
 
@@ -91,15 +92,29 @@ public class UnitActionSystem : MonoBehaviour
     
     private void SetSelectedUnit(Unit unit)
     {
+        selectedUnit = unit;
+        selectedAction = selectedUnit.GetMoveAction();
+        
         OnSelectedUnitChanged?.Invoke(this, new OnSelectedUnitChangedEventArgs
         {
             OldUnit = selectedUnit,
             NewUnit = unit,
         });
         
-        selectedUnit = unit;
-        selectedAction = selectedUnit.GetMoveAction();
     }
+
+    public void SetSelectedAction(BaseAction baseAction)
+    {
+        selectedAction = baseAction;
+        
+        OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public BaseAction GetSelectedAction()
+    {
+        return selectedAction;
+    }
+    
     
     
 }
