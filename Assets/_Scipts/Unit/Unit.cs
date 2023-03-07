@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    public static event EventHandler OnAnyActionPointChanged;
     
     private GridPosition currentGridPosition;
     private MoveAction moveAction;
@@ -24,6 +25,15 @@ public class Unit : MonoBehaviour
     {
         currentGridPosition = LevelGrid.Instance.GridFromWorld(transform.position);
         LevelGrid.Instance.AddUnitAtGridPosition(currentGridPosition, this);
+        
+        TurnSystem.Instance.OnTurnChanged += OnTurnChanged;
+    }
+
+    private void OnTurnChanged(object sender, EventArgs e)
+    {
+        actionPoints = 3;
+        
+        OnAnyActionPointChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private void Update()
@@ -72,6 +82,8 @@ public class Unit : MonoBehaviour
         if (actionPoints >= baseAction.GetActionCost())
         {
             actionPoints -= baseAction.GetActionCost();
+            
+            OnAnyActionPointChanged?.Invoke(this, EventArgs.Empty);
             return true;
         }
 
