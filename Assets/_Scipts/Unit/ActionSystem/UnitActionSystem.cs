@@ -71,10 +71,12 @@ public class UnitActionSystem : MonoBehaviour
 
             if (unitInfo.ClickedUnit != null && unitInfo.ClickedUnit != selectedUnit)
             {
-                SetSelectedUnit(unitInfo.ClickedUnit);
-                return unitInfo.IsClickAnyUnit;
+                if (!unitInfo.ClickedUnit.IsEnemy())
+                {
+                    SetSelectedUnit(unitInfo.ClickedUnit);
+                    return unitInfo.IsClickAnyUnit;
+                }
             }
-
             return unitInfo.IsClickAnyUnit;
         }
 

@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    [SerializeField] private bool isEnemy;
+    
+    
     public static event EventHandler OnAnyActionPointChanged;
     
     private GridPosition currentGridPosition;
@@ -93,6 +96,11 @@ public class Unit : MonoBehaviour
     public int GetActionPoints()
     {
         return actionPoints;
+    }
+
+    public bool IsEnemy()
+    {
+        return isEnemy;
     }
     
     
